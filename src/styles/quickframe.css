@@ -4,7 +4,7 @@
 * www.rengelog.com
 * Free to use under the MIT license.
 * http://www.opensource.org/licenses/mit-license.php
-* 2025/2/26 - 2025/3/21
+* 2025/2/26 - 2025/3/24
 */
 
 :root {
@@ -98,7 +98,7 @@
 }
 
 /* カラム（col） */
-[class^="col-"] {
+.col-12, .col-11, .col-10, .col-9, .col-8, .col-7, .col-6, .col-5, .col-4, .col-3, .col-2, .col-1 {
     flex-grow: 1;
     box-sizing: border-box; /* パディングを幅に含める */
 }
@@ -126,8 +126,8 @@
 
 /* レスポンシブ対応（スマホ） */
 @media (max-width: 600px) {
-    [class^="col-"] {
-        width: 100%; /* 1カラム */
+    .col-11, .col-10, .col-9, .col-8, .col-7, .col-6, .col-5, .col-4, .col-3, .col-2, .col-1 {
+        width: 100%; /* 2カラム */
     }
 }
 
@@ -3954,4 +3954,50 @@ html[data-theme="dark"] .faq-answer p {
 
 .faq-item.active .faq-answer {
     display: block; /* 展開されたときに表示 */
+}
+
+/* -------------------------------------------------------------------------- */
+/* Contents-Slide */
+/* -------------------------------------------------------------------------- */
+
+.contents-slide {
+    position: relative;
+    width: 100%;
+    margin: 1rem 0;
+    overflow: hidden;
+}
+
+.slides_c {
+    display: none;
+    opacity: 0; /* 初期状態は透明 */
+    transition: opacity 0.5s ease-in-out; /* アニメーションを設定 */
+}
+
+.slides_c.active {
+    display: block;
+    opacity: 1; /* 表示状態 */
+}
+
+.slides_c h2 {
+    margin-bottom: 1rem;
+}
+
+.slides_c img {
+    width: 100%;
+}
+
+#nav-icons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#nav-icons button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+html[data-theme="dark"] #nav-icons button {
+    color: #fff;
 }

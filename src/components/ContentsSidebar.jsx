@@ -1,53 +1,61 @@
 import React, { useState, useEffect } from 'react';
 
-function switchContent(index) {
-  const content = contents[index];
-  if (content) {
-    content.classList.remove('active');
-    content.classList.add('fade-in');
-  }
-}
-
 const ContentsSidebar = ({ contents }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isClient, setIsClient] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
+  // 初期マウント時にアニメーションをトリガー
   useEffect(() => {
-    setIsClient(true);
+    setIsMounted(true);
+    return () => setIsMounted(false);
   }, []);
 
-  const switchContent = (index) => {
-    setCurrentIndex(index);
+  const handleSlideChange = (newIndex) => {
+    setCurrentIndex(newIndex);
   };
 
   const prevButtonHandler = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + contents.length) % contents.length);
+    handleSlideChange((currentIndex - 1 + contents.length) % contents.length);
   };
 
   const nextButtonHandler = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % contents.length);
+    handleSlideChange((currentIndex + 1) % contents.length);
+  };
+
+  // アニメーション用クラスを動的に付与
+  const getSlideClasses = (index) => {
+    let classes = 'slides_c';
+    if (index === currentIndex) classes += ' active';
+    if (isMounted) classes += ' mounted';
+    return classes;
   };
 
   return (
-    <div suppressHydrationWarning className="contents-slide">
-      {isClient && (
-        contents.map((content, index) => (
-          <div key={content.id} className={`content ${currentIndex === index ? 'active' : ''}`}>
-            <h2>{content.title}</h2>
-            <a href={content.url}>
-              {content.image && (
-                <img src={content.image} alt={content.alt} />
-              )}
-            </a>
-            <p>{content.text}</p>
-          </div>
-        ))
-      )}
+    <div className="contents-slide">
+      {contents.map((content, index) => (
+        <div 
+          key={content.id}
+          className={getSlideClasses(index)}
+          style={{ 
+            opacity: index === currentIndex ? 1 : 0,
+            transition: 'opacity 0.5s ease-in-out'
+          }}
+        >
+          <h2>{content.title}</h2>
+          <a href={content.url}>
+            {content.image && (
+              <img src={content.image} alt={content.alt} />
+            )}
+          </a>
+          <p>{content.text}</p>
+        </div>
+      ))}
+
       <div id="nav-icons">
-        <button id="prev-button" onClick={prevButtonHandler}>
+        <button className="prev-button" onClick={prevButtonHandler}>
           <i className="material-icons icon-position">keyboard_arrow_left</i>
         </button>
-        <button id="next-button" onClick={nextButtonHandler}>
+        <button className="next-button" onClick={nextButtonHandler}>
           <i className="material-icons icon-position">keyboard_arrow_right</i>
         </button>
       </div>

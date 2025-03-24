@@ -864,3 +864,46 @@ function toggleAnswer(questionElement) {
     }
 }
 
+/* -------------------------------------------------------------------------- */
+/* コンテンツスライド */
+/* -------------------------------------------------------------------------- */
+
+const ContentsSlide = document.querySelector('.contents-slide');
+const slides = document.querySelectorAll('.slides_c');
+const prevButton = document.querySelector('.prev-button');
+const nextButton = document.querySelector('.next-button');
+
+let currentSlideIndex = 0;
+
+prevButton.addEventListener('click', () => {
+    currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+    updateSlide();
+});
+
+nextButton.addEventListener('click', () => {
+    currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+    updateSlide();
+});
+
+function updateSlide() {
+    slides.forEach((slide, index) => {
+        if (index === currentSlideIndex) {
+        slide.classList.add('active');
+        slide.style.display = 'block'; // 表示状態を強制的に更新
+        slide.style.opacity = 0; // 一時的に透明にする
+        setTimeout(() => {
+            slide.style.opacity = 1; // 表示状態に戻す
+        }, 500); // 遅延を500msに設定
+        } else {
+        slide.classList.remove('active');
+        slide.style.display = 'none'; // 非表示状態を強制的に更新
+        }
+    });
+}
+
+// 初期表示時にスライドがふわっと表示されるように
+setTimeout(() => {
+    slides[0].style.opacity = 1;
+    slides[0].style.display = 'block';
+}, 500); // 遅延を500msに設定
+  

@@ -168,7 +168,7 @@ html[data-theme="dark"] .results-list.fade-in {
 }
 
 /* -------------------------------------------------------------------------- */
-/* custom-remark-plugin */
+/* remarkCallout */
 /* -------------------------------------------------------------------------- */
 
 tip, info, note, warning, danger {
@@ -843,15 +843,3 @@ html[data-theme="dark"] .copy-btn svg path {
 .copy-btn.show .copied-text {
     opacity: 1;
 }
-
-
-
-
-
-
-
-
-
-
-
-

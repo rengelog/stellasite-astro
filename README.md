@@ -1,7 +1,6 @@
-# Astro Starter Kit: Basics
-
+# stellasite-astro
 ```sh
-npm create astro@latest -- --template basics
+git clone https://github.com/rengelog/stellasite-astro.git my-project
 ```
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
@@ -46,3 +45,6 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+=======
+# stellasite-astro
+>>>>>>> 28028c4a02b5a25f1ab190a935d389bf16208235

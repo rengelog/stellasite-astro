@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const popularPosts = allPosts
+  .filter(post => post.data.isPopular)
+  .sort((a, b) => (a.data.isPopularNumber || Infinity) - (b.data.isPopularNumber || Infinity))
+  .slice(0, 5);
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
+---
+
+<div class="popular-posts">
+  <h2>人気記事</h2>
+  <ul>
+    {popularPosts.map((post, index) => (
+      <li>
+        <span class={`rank rank${index + 1}`}>{index + 1}</span>
+        <a href={`${baseURL}/blog/${post.slug}`}>{post.data.title}</a>
+      </li>
+    ))}
+  </ul>
+</div>

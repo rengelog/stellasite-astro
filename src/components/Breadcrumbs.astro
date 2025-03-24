@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+
+// 現在のURLパスを取得
+const currentPath = Astro.url.pathname;
+// パスの最後の部分（スラッグ）を取得
+const slug = currentPath.split('/').filter(Boolean).pop();
+
+// すべての記事を取得
+const allPosts = await getCollection('blog');
+// 現在のスラッグに一致する記事を検索
+const currentPost = allPosts.find(post => post.slug === slug);
+// 記事のタイトルを取得（見つからない場合はデフォルト値を使用）
+const currentPageTitle = currentPost?.data.title || "現在のページ";
+
+const breadcrumbs = [
+  { label: "ホーム", link: "/" },
+  { label: "ブログ", link: "/blog/" },
+  { label: currentPageTitle, link: currentPath },
+];
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || ""; // ベースURL
+---
+
+<div class="breadcrumbs">
+  {breadcrumbs.map(({ link, label }, index) => {
+    const isLast = index === breadcrumbs.length - 1;
+    return (
+      <>
+        {!isLast ? (
+          <a href={`${baseURL}${link}`} class="breadcrumbs-link">{label}</a>
+        ) : (
+          <span class="breadcrumbs-last" aria-current="page">{label}</span>
+        )}
+        {!isLast && <i class="material-icons icon-small">chevron_right</i>}
+      </>
+    );
+  })}
+</div>

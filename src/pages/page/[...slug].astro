@@ -1,0 +1,21 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('page');
+  return pages.map(page => ({
+    params: { slug: page.data.slug || page.slug }, // カスタムslugがない場合はデフォルトのslugを使用
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+const { Content } = await page.render();
+---
+
+<BaseLayout>
+  <article>
+    <Content />
+  </article>
+</BaseLayout>

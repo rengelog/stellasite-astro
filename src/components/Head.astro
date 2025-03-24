@@ -1,0 +1,53 @@
+---
+import { site } from '../config';
+
+import { SEO } from 'astro-seo';
+const title = Astro.props.title;
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
+---
+
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+  <SEO
+      title={site.title}
+      description={site.description}
+      openGraph={{
+        basic: {
+          title: title,
+          type: "website",
+          image: "https://user-images.githubusercontent.com/5182256/131216951-8f74f425-f775-463d-a11b-0e01ad9fce8d.png",
+        }
+      }}
+      twitter={{
+        creator: "@jonasmerlins1"
+      }}
+      extend={{
+        // extending the default link tags
+        link: [{ rel: "icon", href: "/favicon.ico" }],
+        // extending the default meta tags
+        meta: [
+          {
+            name: "twitter:image",
+            content: "https://user-images.githubusercontent.com/5182256/131216951-8f74f425-f775-463d-a11b-0e01ad9fce8d.png",
+          },
+          { name: "twitter:title", content: "Tinker Tailor Soldier Spy" },
+          { name: "twitter:description", content: "Agent" },
+        ],
+      }}
+    />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href={`${baseURL}/favicon.svg`} type="image/svg+xml">
+  <title>{site.title}</title>
+  <script is:inline>
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      // ここに他の要素にアクセスするコードを追加
+    });
+  </script>
+</head>

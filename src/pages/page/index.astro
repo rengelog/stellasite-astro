@@ -1,0 +1,39 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection, getEntry } from "astro:content";
+
+// page コレクションからデータを取得
+const entry = await getEntry("page", "index");
+
+if (!entry) {
+  throw new Error("ページが見つかりません！");
+}
+
+// page コレクションの全エントリーを取得し、indexを除外して日付順にソート
+const allPages = await getCollection("page");
+const pagesToShow = allPages
+  .filter(page => page.slug !== "index")
+  .sort((a, b) => {
+    const aDate = new Date(a.data.date || '').getTime();
+    const bDate = new Date(b.data.date || '').getTime();
+    return aDate - bDate; // 古い順（昇順）にソート
+  });
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
+---
+
+<BaseLayout>
+  <article>
+    {entry.body}
+  </article>
+
+  <h2>ページ一覧</h2>
+  <ul class="page-list">
+    {pagesToShow.map((page) => (
+      <li>
+        <a href={`${baseURL}/page/${page.slug}`}>{page.data.title}</a>
+        {page.data.date && <span> - {new Date(page.data.date).toLocaleDateString()}</span>}
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

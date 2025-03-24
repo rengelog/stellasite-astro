@@ -1,0 +1,23 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  imageUrl: string;
+  profileUrl: string;
+}
+
+const { name, description, imageUrl, profileUrl } = Astro.props;
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
+---
+
+<div class="profile-box">
+    <img src={`${baseURL}${imageUrl}`} alt={name} />
+    <h2>{name}</h2>
+    <p>{description}</p>
+    <a href={`${baseURL}${profileUrl}`} class="button">プロフィールを見る</a>
+</div>
+
+<style>
+ 
+</style>

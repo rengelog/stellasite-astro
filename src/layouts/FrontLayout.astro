@@ -1,0 +1,54 @@
+---
+import "@/styles/quickframe.css";
+import "@/styles/global.css";
+import "@/styles/components.css";
+
+import Head from '@/components/Head.astro';
+import Header from '@/components/Header.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+
+import { site } from "@/config";
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
+---
+
+<Head title={site.title} />
+
+<body>
+
+  <Header siteTitle={site.title} />
+
+  <Navbar baseURL={baseURL} />
+  
+  <section class="hero-container">
+    <div class="hero-box">
+        <img src={`${baseURL}/assets/images/hero-image-front.png`} alt="img" class="hero-image" />
+        <div class="centered-text">
+            <h2>Welcome to<br />StellaSite Astro</h2>
+            <p>
+              ここは「StellaSite Astro」のレイアウトのサンプルサイトです。
+            </p>
+        </div>
+    </div>
+  </section>
+
+  <div class="site-main">
+    <div class="container">
+      <div class="row">
+
+          <main class="col-12">
+            <div class="main-contents">
+              <slot />
+            </div>
+          </main>
+          
+        </div>
+      </div>
+  </div>
+
+  <Footer />
+
+</body>
+
+</html>

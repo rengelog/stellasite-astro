@@ -1,0 +1,130 @@
+---
+import BlogLayout from "@/layouts/BlogLayout.astro";
+import { getCollection } from "astro:content";
+
+import { Image } from 'astro:assets';
+
+export async function getStaticPaths({ paginate }) {
+  const blogPosts = await getCollection("blog");
+
+  // 記事を新しい順に並び替え
+  const sortedBlogPosts = blogPosts.sort((a, b) =>
+    new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+  );
+
+  // ページネーションの設定 (1ページあたり8件)
+  return paginate(sortedBlogPosts, { pageSize: 8 });
+}
+
+// paginate()関数で取得したpageプロパティ
+const { page } = Astro.props;
+ 
+// ページネーションの総ページ数
+const totalPages = page.lastPage;
+ 
+// ページ番号の配列 [1, 2, 3]のような形式で生成
+const pageNumbers = Array.from({length: totalPages}, (_, i) => {
+  return i + 1;
+});
+ 
+// ページ番号からページURLを生成
+const getPageUrl = (pageNumber) => {
+  return pageNumber === 1 ? page.url.first : `${baseURL}/blog/${pageNumber}`;
+}
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || ""; // ベースURL
+---
+
+<BlogLayout>
+  <div class="card-grid">
+    {page.data.length > 0 ? (
+      page.data.map((post) => (
+        <div class="card">
+          <a href={`${baseURL}/blog/${post.slug}/`} class="card-link">
+            {post.data.image && (
+              <Image 
+                src={post.data.image} 
+                alt={`Image for ${post.data.title}`} 
+                class="card-img"
+              />
+            )}
+            <h2 class="card-title">{post.data.title}</h2>
+            <div class="card-body">
+              <p class="card-date">投稿日: {new Date(post.data.date).toLocaleDateString()}</p>
+              <p class="card-text">{post.data.description}</p>
+              <span class="button">詳細を見る</span>
+            </div>
+          </a>
+        </div>
+      ))
+    ) : (
+      <p>記事が見つかりません。</p>
+    )}
+  </div>
+
+  <nav class="pagination" aria-label="ページネーション">
+ 
+    <ul class="list">
+      <!-- 最初のページ -->
+      <li class="item">
+        {
+          page.url.first ? (
+            <a class="link" href={page.url.first}><i class="icon-small material-icons">keyboard_double_arrow_left</i></a>
+          ) : (
+            <span class="link"><i class="icon-small material-icons">keyboard_double_arrow_left</i></span>
+          )
+        }
+      </li>
+   
+      <!-- 前のページ -->
+      <li class="item">
+        {
+          page.url.prev ? (
+            <a class="link" href={page.url.prev}><i class="icon-small material-icons">keyboard_arrow_left</i></a>
+          ) : (
+            <span class="link"><i class="icon-small material-icons">keyboard_arrow_left</i></span>
+          )
+        }
+      </li>
+   
+      <!-- ○番目のページ -->
+      {
+        pageNumbers.map((pageNumber) => {
+          return (
+            <li class="item">
+              {
+                page.currentPage === pageNumber ? (
+                  <span class="link current" aria-current="page">{pageNumber}</span>
+                ) : (
+                  <a class="link" href={getPageUrl(pageNumber)}>{pageNumber}</a>
+                )
+              }
+            </li>
+          );
+        })
+      }
+   
+      <!-- 次のページ -->
+      <li class="item">
+        {
+          page.url.next ? (
+            <a class="link" href={page.url.next}><i class="icon-small material-icons">keyboard_arrow_right</i></a>
+          ) : (
+            <span class="link"><i class="icon-small material-icons">keyboard_arrow_right</i></span>
+          )
+        }
+      </li>
+   
+      <!-- 最後のページ -->
+      <li class="item">
+        {
+          page.url.last ? (
+            <a class="link" href={page.url.last}><i class="icon-small material-icons">keyboard_double_arrow_right</i></a>
+          ) : (
+            <span class="link"><i class="icon-small material-icons">keyboard_double_arrow_right</i></span>
+          )
+        }
+      </li>
+    </ul>
+  </nav>
+</BlogLayout>

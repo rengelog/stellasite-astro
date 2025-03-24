@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
+
+const allPosts = await getCollection('blog');
+const recentPosts = allPosts
+  .filter(post => post.data.date) // 日付が存在する投稿のみ取得
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 5);
+---
+
+<div class="recent-posts">
+    <h2>最近の投稿</h2>
+    <ul>
+        {recentPosts.map((post) => (
+            <li>
+                <a href={`${baseURL}/blog/${post.slug}`}>{post.data.title}</a>
+                {post.data.date && (
+                <span> - {new Date(post.data.date).toLocaleDateString("ja-JP", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                })}</span>
+                )}
+            </li>
+        ))}
+    </ul>
+</div>

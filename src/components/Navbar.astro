@@ -1,0 +1,71 @@
+---
+import { getCollection } from 'astro:content';
+
+const { baseURL } = Astro.props;
+const currentPath = new URL(Astro.request.url).pathname;
+
+// pageコレクションの全エントリーを取得し、indexを除外して日付順にソート
+const pageEntries = await getCollection('page');
+const pages = pageEntries
+  .filter(page => page.slug !== 'index')
+  .sort((a, b) => {
+    const aDate = new Date(a.data.date).getTime(); // フロントマターのdateフィールドを使用
+    const bDate = new Date(b.data.date).getTime();
+    return aDate - bDate; // 古い順（昇順）にソート
+  });
+
+const menuItems = [
+  { path: "/", title: "ホーム" },
+  { path: "/about/", title: "このサイトについて" },
+  { path: "/blog/", title: "ブログ" },
+  {
+    path: "/page/",
+    title: "ページ",
+    children: pages.map(page => ({
+      path: `/page/${page.slug}/`,
+      title: page.data.title,
+      date: page.data.date
+    })).sort((a, b) => new Date(a.date) - new Date(b.date))
+  }
+];
+---
+
+<div class="nav-container">
+  <div class="container">
+    <nav class="navbar navbar-center" role="navigation" aria-label="Main Navigation">
+      <div class="navbar-brand">
+        <div class="navbar-icons">
+          <button
+            class="navbar-burger-center"
+            aria-label="メニュー"
+            aria-expanded="false"
+            data-target="main-menu-center"
+            id="burger-button"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+      <div id="main-menu-center" class="navbar-menu-center">
+        <ul class="navbar-end">
+          {menuItems.map((item) => (
+            <li class={`menu-item ${currentPath.startsWith(item.path) ? 'current-menu-item' : ''}`}>
+              <a href={`${baseURL}${item.path}`}>{item.title}</a>
+              {item.children && (
+                <ul class="submenu">
+                  {item.children.map((child) => (
+                    <li>
+                      <a href={`${baseURL}${child.path}`}>{child.title}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>

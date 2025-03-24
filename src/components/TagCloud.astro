@@ -1,0 +1,50 @@
+---
+import { getUniqueTags } from '@/utils/getTags';
+import { getCollection } from 'astro:content';
+
+// タグ取得時にundefinedを除外
+const tags = await getUniqueTags();
+
+const posts = await getCollection('blog');
+
+const tagCount = posts.reduce((acc, post) => {
+  const postTags = Array.isArray(post.data.tags) 
+    ? post.data.tags.filter(Boolean) 
+    : [post.data.tag].filter(Boolean);
+
+  postTags.forEach(tag => {
+    if (tag) {
+      acc[tag] = (acc[tag] || 0) + 1;
+    }
+  });
+  return acc;
+}, {});
+
+// タグサイズクラスを割り当てる関数
+function getTagSizeClass(count) {
+  if (count >= 15) return 'tag-xlarge';
+  if (count >= 10) return 'tag-large';
+  if (count >= 5) return 'tag-medium';
+  return 'tag-small';
+}
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
+---
+
+<div class="tag-sidebar">
+    <h2>タグクラウド</h2>
+    <div class="tag-cloud">
+    {tags.map(tag => {
+        // タグ名のバリデーション
+        if (!tag || typeof tag !== 'string') return null;
+        
+        const encodedTag = encodeURIComponent(tag);
+        const count = tagCount[tag] || 0;
+        const sizeClass = getTagSizeClass(count);
+        
+        return (
+        <a href={`${baseURL}/tag/${encodedTag}/`} class={`tags ${sizeClass}`}>{tag}</a>
+        );
+    })}
+    </div>
+</div>

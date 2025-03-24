@@ -1,0 +1,50 @@
+---
+import "@/styles/quickframe.css";
+import "@/styles/global.css";
+import "@/styles/components.css";
+
+import Head from '@/components/Head.astro';
+import Header from '@/components/Header.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+
+import SearchBox from "@/components/SearchBox.jsx";
+
+import { site } from "@/config";
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
+---
+
+<Head title={site.title} />
+
+<body>
+
+  <Header siteTitle={site.title} />
+
+  <Navbar baseURL={baseURL} />
+
+  <div class="site-main">
+    <div class="container">
+      <div class="row">
+
+          <div class="col-8">
+            <main class="main-contents">
+              <slot />
+            </main>
+          </div>
+
+          <div class="col-4">
+            <aside class="sidebar">
+              <SearchBox client:load />
+            </aside>
+          </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <Footer />
+
+</body>
+
+</html>

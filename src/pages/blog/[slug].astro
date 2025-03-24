@@ -1,0 +1,71 @@
+---
+import BlogLayout from "@/layouts/BlogLayout.astro";
+import { getCollection } from "astro:content";
+import ShareButtons from '@/components/ShareButtons.astro';
+
+// import { Breadcrumbs } from "astro-breadcrumbs";
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.data.slug || post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+// 日付をフォーマット
+const formattedDate = new Date(post.data.date).toLocaleDateString("ja-JP", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+// カテゴリーをリンクに変換する関数
+const categoryToLink = (category: string): string => 
+  `<a href="${baseURL}/category/${category}">${category}</a>`;
+
+
+// タグをリンクに変換する関数
+const tagToLink = (tag: string): string => 
+  `<a href="${baseURL}/tag/${tag}">${tag}</a>`;
+---
+
+<BlogLayout title={post.data.title}>
+
+  <Breadcrumbs />
+
+  <h1>{post.data.title}</h1>
+  
+  <!-- 日付を表示 -->
+  {post.data.date && <p class="post-data"><i class="material-icons icon-position">calendar_month</i> 投稿日 : {formattedDate}</p>}
+  
+  <!-- カテゴリーを表示 -->
+  {(post.data.category || post.data.categories) && (
+    <p class="post-category"><i class="material-icons icon-position">inventory</i>
+       カテゴリー : 
+      {post.data.category 
+        ? <Fragment set:html={categoryToLink(post.data.category)} />
+        : Array.isArray(post.data.categories)
+          ? <Fragment set:html={post.data.categories.map(categoryToLink).join(' ')} />
+          : post.data.categories 
+            ? <Fragment set:html={categoryToLink(post.data.categories)} />
+            : null}
+    </p>
+  )}
+    
+  <!-- タグを表示 -->
+  {post.data.tags && (
+    <p class="post-tag"><i class="material-icons icon-position">sell</i> タグ : <Fragment set:html={post.data.tags.map(tagToLink).join(' ')} /></p>
+  )}
+  
+  <article>
+    <Content />
+    <ShareButtons />
+  </article>
+</BlogLayout>

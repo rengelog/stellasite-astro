@@ -1,0 +1,609 @@
+/* -------------------------------------------------------------------------- */
+/* Global */
+/* -------------------------------------------------------------------------- */
+
+/* スムーズスクロールのアニメーション */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 
+        "Helvetica Neue", Arial, "Noto Sans JP", "Hiragino Kaku Gothic ProN", 
+        "Hiragino Sans", Meiryo, sans-serif !important;
+    margin: 0 auto;
+}
+
+html, body {
+    height: 110%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.site-main {
+    flex: 1; /* メインコンテンツが余ったスペースを埋める */
+}
+
+.main-contents {
+    padding: 1rem;
+}
+
+html[data-theme="dark"] .main-contents {
+    color: #fff;
+}
+
+.sidebar {
+    background-image: linear-gradient(
+        135deg, 
+        rgba(5, 5, 5, 0.9) 0%, 
+        rgba(0, 0, 80, 1) 50%, 
+        rgba(0, 0, 40, 1) 100%
+    );
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+html[data-theme="dark"] .sidebar {
+    background-image: linear-gradient(
+        135deg, 
+        rgba(35, 38, 47, 0.9) 0%, 
+        rgba(20, 10, 40, 1) 50%, 
+        rgba(10, 0, 30, 1) 100%
+    );
+}
+
+@media (max-width: 900px) {
+    .main-contents {
+        width: 100%;
+        padding: 0.5rem;
+    }
+    
+    .sidebar {
+        width: 100%;
+        padding: 0.5rem;
+        margin-bottom: 0px;
+    }
+}
+
+.footer-container {
+    background-image: linear-gradient(
+        135deg, 
+        rgba(5, 5, 5, 0.9) 0%, 
+        rgba(0, 0, 80, 1) 50%, 
+        rgba(0, 0, 40, 1) 100%
+    );
+}
+
+html[data-theme="dark"] .footer-container {
+    background-image: linear-gradient(
+        135deg, 
+        rgba(35, 38, 47, 0.9) 0%, 
+        rgba(20, 10, 40, 1) 50%, 
+        rgba(10, 0, 30, 1) 100%
+    );
+}
+
+.site-copyright p {
+    text-align: center;
+}
+
+.front-layout {
+    text-align: center;
+}
+
+/* -------------------------------------------------------------------------- */
+/* header */
+/* -------------------------------------------------------------------------- */
+
+.main-header h1 {
+    margin: 0px;
+}
+
+.home-link {
+    text-decoration: none;
+    color: #17181c;
+}
+
+@media (max-width: 600px) {
+    .home-link {
+        font-size: 1.5rem;
+    }
+}
+
+.home-link:hover {
+    text-decoration: none !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* hero */
+/* -------------------------------------------------------------------------- */
+
+.hero-gradation-container {
+    padding: 10rem;
+}
+
+@media (max-width: 600px) {
+    .hero-gradation-container {
+        padding: 1rem !important;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/* nav */
+/* -------------------------------------------------------------------------- */
+
+.navbar {
+    margin-bottom: 1rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* nav submenu */
+/* -------------------------------------------------------------------------- */
+
+.menu-item {
+    position: relative;
+}
+
+.submenu {
+    display: none !important;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 2;
+}
+
+@media (max-width: 600px) {
+    .submenu {
+        box-shadow: 0 0px 0px rgba(0,0,0,0.1);
+    }
+}
+
+html[data-theme="dark"] .submenu {
+    background: #17181c;
+}
+
+.menu-item:hover .submenu {
+    display: block !important;
+    min-width: max-content;
+}
+
+.menu-item:has(.submenu) > a::after {
+    content: 'arrow_drop_down'; /* 下向き矢印 (chevron-down) */
+    font-family: 'Material Icons'; /* Material Iconsを指定 */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+}
+
+@media (max-width: 900px) {
+    .submenu {
+        display: block !important;
+    }
+
+    .submenu li {
+        padding-left: 1rem;
+        box-sizing: border-box;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/* blog */
+/* -------------------------------------------------------------------------- */
+
+.card {
+    /* background-image: linear-gradient(
+        135deg, 
+        rgba(5, 5, 5, 0.9) 0%, 
+        rgba(0, 0, 80, 1) 50%, 
+        rgba(0, 0, 40, 1) 100%
+    );
+    color: #fff; */
+}
+
+html[data-theme="dark"] .card {
+    background-image: linear-gradient(
+        135deg, 
+        rgba(35, 38, 47, 0.9) 0%, 
+        rgba(20, 10, 40, 1) 50%, 
+        rgba(10, 0, 30, 1) 100%
+    );
+}
+
+.card-title {
+    /* color: #fff; */
+}
+
+.card-date {
+    /* color: #fff; */
+}
+
+.card-body .button {
+    /* color: #fff; */
+}
+
+/* -------------------------------------------------------------------------- */
+/* breadcrumbs */
+/* -------------------------------------------------------------------------- */
+
+.breadcrumbs {
+    padding: 0;
+    margin: 0;
+}
+
+.breadcrumbs a {
+    text-decoration: none;
+}
+
+.breadcrumbs-last {
+    position: relative;
+    top: 1px;
+}
+
+.breadcrumbs i {
+    position: relative;
+    top: 3px;
+}
+
+.breadcrumbs-link:nth-child(3) {
+    position: relative;
+    top: 1px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* blog article */
+/* -------------------------------------------------------------------------- */
+
+article img {
+    max-width: 100%;
+}
+
+.page-list a {
+    text-decoration: none;
+}
+
+.archive-list a {
+    text-decoration: none;
+}
+
+.category-list a {
+    text-decoration: none;
+}
+
+.tag-list a {
+    text-decoration: none;
+}
+
+.post-data {
+    font-size: 0.8rem;
+}
+
+.post-category {
+    font-size: 0.8rem;
+}
+
+.post-category a {
+    background: #000dbf;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.2rem 0.3rem;
+    border-radius: 3px;
+}
+
+html[data-theme="dark"] .post-category a {
+    background: #fff;
+    color: #333;
+}
+
+.post-tag {
+    font-size: 0.8rem;
+}
+
+.post-tag a {
+    background: #000dbf;
+    color: #fff;
+    padding: 0.2rem 0.3rem;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+html[data-theme="dark"] .post-tag a {
+    background: #fff;
+    color: #333;
+}
+
+.share-buttons i {
+    font-size: 1.2rem;
+    position: relative;
+    top: 2px;
+}
+
+.shere-text {
+    font-size: 0.8rem;
+    position: relative;
+    top: 3px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* icon */
+/* -------------------------------------------------------------------------- */
+
+.icon-position {
+    position: relative;
+    top: 3px;
+    font-size: 1rem;
+}
+
+.icon-margin {
+    margin-right: 0.2rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* blog article h1 - h6 */
+/* -------------------------------------------------------------------------- */
+
+.main-contents h1 {
+    border-bottom: 3px solid #010a8f;
+    padding: 0.5rem 0.6rem 0.5rem 2rem;
+    text-indent: -1.5rem;
+    margin: 0rem 0 2rem;
+}
+
+@media (max-width: 900px) {
+    .main-contents h1 {
+        font-size: 1.5rem;
+    }
+}
+
+html[data-theme="dark"] .main-contents h1 {
+    border-bottom: 3px solid #fff;
+}
+
+.main-contents h1::before {
+    content: 'double_arrow' !important;
+    font-family: 'Material Icons'; 
+    font-weight: 900;
+    content: "";
+    margin-right: 0.3rem;
+    position: relative;
+    top: 5px;
+}
+
+article h2 {
+    color: #fff;
+    background-image: linear-gradient(
+        135deg, 
+        rgba(69, 165, 255, 0.9) 0%, 
+        rgb(0, 13, 191) 75%, 
+        rgb(1, 10, 143) 25%
+    );
+    padding: 0.5rem 0.6rem 0.5rem 2rem;
+    text-indent: -1.5rem;
+    margin: 4rem 0 2rem;
+}
+
+html[data-theme="dark"] article h2 {
+    background-image: linear-gradient(
+        135deg, 
+        rgba(35, 38, 47, 0.9) 0%, 
+        rgba(0, 0, 140, 1) 75%, 
+        rgba(0, 0, 100, 1) 25%
+      );
+}
+
+article h2::before {
+    color: #fff;
+    content: 'double_arrow' !important;
+    font-family: 'Material Icons'; 
+    font-weight: 900;
+    content: "";
+    margin-right: 0.3rem;
+    position: relative;
+    top: 5px;
+}
+
+article h3 {
+    border-bottom: dotted 2px #010a8f;
+    border-left: none;
+    font-size: 1.4rem;
+    padding: 0 0 0.5rem 1.3rem;
+    margin: 4rem 0 1rem;
+    text-indent: -1rem;
+}
+
+article h3::before {
+    content: 'label_important' !important;
+    font-family: 'Material Icons'; 
+    content: "";
+    font-weight: bold;
+    margin-right: 0.4rem;
+    position: relative;
+    top: 3px;
+}
+
+html[data-theme="dark"] article h3 {
+    border-bottom: dotted 2px #fff;
+}
+
+article h4 {
+    font-size: 1.3rem;
+    margin: 4rem 0 1rem;
+    padding: 0 0 0 1.4rem;
+    text-indent: -1.5rem;
+}
+
+article h4::before {
+    content: 'arrow_forward' !important;
+    font-family: 'Material Icons'; 
+    content: "";
+    font-weight: bold;
+    margin-right: 0.4rem;
+    position: relative;
+    top: 3px;
+}
+
+article h5 {
+    font-size: 1.2rem;
+    margin: 4rem 0 1rem;
+    padding: 0 0 0 1.4rem;
+    text-indent: -1.5rem;
+}
+
+article h5::before {
+    content: 'keyboard_arrow_right' !important;
+    font-family: 'Material Icons'; 
+    content: "";
+    font-weight: bold;
+    margin-right: 0.4rem;
+    position: relative;
+    top: 3px;
+}
+
+article h6 {
+    font-size: 1rem;
+    margin: 4rem 0 1rem;
+    padding: 0 0 0 1.4rem;
+    text-indent: -1.5rem;
+}
+
+.mdx-related-posts h3 {
+    border-bottom: dotted 0px #010a8f;
+    border-left: none;
+    font-size: 1.5rem;
+    padding: 0 0 0rem 0rem;
+    margin: 0rem 0 0rem;
+    text-indent: 0rem;
+}
+
+html[data-theme="dark"] .mdx-related-posts h3 {
+    border-bottom: dotted 0px #fff;
+}
+
+.mdx-related-posts h3::before {
+    content: ' ' !important;
+    font-family: 'Material Icons';
+    content: "";
+    margin-right: 0rem;
+    position: relative;
+    top: 0px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* pagination */
+/* -------------------------------------------------------------------------- */
+
+html[data-theme="dark"] .pagination a, html[data-theme="dark"] .pagination span {
+    background: #23262f;
+    color: #fff;
+}
+
+.list {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.current {
+        background: #526cfe;
+        color: #fff;
+    }
+}
+
+html[data-theme="dark"] .link {
+    &.current {
+        background: #fff;
+        color: #333;
+    }
+}
+
+.item {
+    list-style: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* sidebar */
+/* -------------------------------------------------------------------------- */
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 0.5rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* social-links */
+/* -------------------------------------------------------------------------- */
+
+.social-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.social-links li {
+    margin-right: 0.5rem;
+    margin-bottom: 0px;
+}
+
+.social-links a {
+    color: white;
+    text-decoration: none;
+}
+
+.social-links i {
+    font-size: 24px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* toc */
+/* -------------------------------------------------------------------------- */
+
+#toc h2 {
+    background: #f9f9f9;
+}
+
+html[data-theme="dark"] #toc h2{
+    background: #23262f;
+}
+
+#toc h2::before {
+    content: ' ' !important;
+    font-family: 'Material Icons';
+    content: "";
+    color: #333;
+    margin-right: 0rem;
+    position: relative;
+    top: 0px;
+}
+
+html[data-theme="dark"] #toc h2::before {
+    color: #fff;
+}
+
+#toc ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+  
+#toc ul li {
+    padding-left: 0;
+}
+  
+#toc ul ul {
+    padding-inline-start: 1em; /* ネストしたリストのインデントを設定 */
+}
+  

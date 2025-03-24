@@ -1,0 +1,66 @@
+---
+title: "MDXの要素サンプル"
+description: "これはMDXの要素サンプルの投稿です。"
+date: 2025-03-19
+slug: "mdx-sample-elements"
+---
+
+# MDXの要素サンプル
+
+これは**太字**のテキストで、*イタリック*もあります。
+
+## リンクカード
+
+import LinkCard from '@/components/LinkCard.astro';
+
+<LinkCard imageSrc="/quickframe-css/dist/demo/assets/images/image.png" url="https://rengelog.com" text="https://rengelog.com" subtext="ほげほげ" />
+
+## 見出し2
+
+### 見出し3
+
+#### 見出し4
+
+- リストアイテム1
+- リストアイテム2
+  - ネストされたアイテム
+- リストアイテム3
+
+1. 番号付きリスト1
+2. 番号付きリスト2
+3. 番号付きリスト3
+
+> これは引用文です。
+> 複数行にまたがることもあります。
+
+`インラインコード` はこのように表示されます。
+
+コードブロック
+```js
+function hello() {
+console.log("Hello, MDX!");
+}
+```
+
+
+[リンクテキスト](https://example.com)
+
+![画像の代替テキスト](/quickframe-css/dist/demo/assets/images/image3.png)
+
+水平線:
+
+---
+
+| 列1 | 列2 | 列3 |
+|-----|-----|-----|
+| A1  | B1  | C1  |
+| A2  | B2  | C2  |
+
+脚注はこのように使用します[^1]。
+
+[^1]: これは脚注の内容です。
+
+~~取り消し線~~ も使えます。
+
+数式: $E = mc^2$
+

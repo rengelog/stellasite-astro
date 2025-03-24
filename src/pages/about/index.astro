@@ -1,0 +1,18 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getEntry } from "astro:content";
+
+// about コレクションからデータを取得
+const entry = await getEntry("about", "index");
+
+if (!entry) {
+  throw new Error("aboutページが見つかりません！");
+}
+---
+
+<BaseLayout>
+  <h1>{entry.data.title}</h1>
+  <article>
+    {entry.body}
+  </article>
+</BaseLayout>

@@ -1,0 +1,31 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const categories = [...new Set(posts.flatMap(post => post.data.category ? [post.data.category] : post.data.categories || []))];
+  
+  return categories.map(category => ({
+    params: { category },
+    props: { posts: posts.filter(post => post.data.category === category || post.data.categories?.includes(category)) }
+  }));
+}
+
+const { category } = Astro.params;
+const { posts } = Astro.props;
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
+---
+
+<BaseLayout title={`カテゴリー: ${category}`}>
+  <h1>カテゴリー: {category}</h1>
+  <ul class="category-list">
+    {posts.map(post => (
+      <li>
+        <a href={`${baseURL}/blog/${post.slug}/`}>{post.data.title}</a>
+        {post.data.date && <span> - {new Date(post.data.date).toLocaleDateString()}</span>}
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

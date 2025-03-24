@@ -1,0 +1,31 @@
+---
+export interface Props {
+  posts: { title: string; link: string }[];
+}
+
+const { posts } = Astro.props;
+
+const relatedText = "関連記事";
+const notFoundText = "関連記事が見つかりません。";
+---
+
+<div class="mdx-related-posts">
+  <h3>
+    <i class="material-icons icon-margin">folder_open</i><span>{relatedText}</span>
+  </h3>
+  <ul>
+    {posts.length > 0 ? (
+      posts.map((post, index) => (
+        <li key={index}>
+          <a href={`/${post.link}`}>
+            <i class="material-icons icon-margin">description</i><span>{post.title}</span>
+          </a>
+        </li>
+      ))
+    ) : (
+      <p>
+        <i class="material-icons icon-margin">description</i><span>{notFoundText}</span>
+      </p>
+    )}
+  </ul>
+</div>

@@ -1,0 +1,123 @@
+---
+import "@/styles/quickframe.css";
+import "@/styles/global.css";
+import "@/styles/components.css";
+
+import Head from '@/components/Head.astro';
+import Header from '@/components/Header.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+
+import SearchBox from "@/components/SearchBox.jsx";
+import ProfileBox from '@/components/ProfileBox.astro';
+import RecentPosts from '@/components/RecentPosts.astro';
+import PopularPosts from '@/components/PopularPosts.astro';
+import ArchiveSidebar from '@/components/ArchiveSidebar.astro';
+import CategorySidebar from '@/components/CategorySidebar.astro';
+import TagSidebar from '@/components/TagSidebar.astro';
+import TagCloud from '@/components/TagCloud.astro';
+import ContentsSidebar from '@/components/ContentsSidebar.jsx';
+
+// contentsSidebar
+const contentsSidebar = [
+  {
+    id: 'content-1',
+    title: 'コンテンツスライド1',
+    text: 'コンテンツ1の説明',
+    image: '/quickframe-css/dist/demo/assets/images/image.png',
+    alt: '画像1',
+    url: '/quickframe-css/dist/demo/docs/hogehoge',
+  },
+  {
+    id: 'content-2',
+    title: 'コンテンツスライド2',
+    text: 'コンテンツ2の説明',
+    image: '/quickframe-css/dist/demo/assets/images/image.png',
+    alt: '画像2',
+    url: '/quickframe-css/dist/demo/docs/hogehoge',
+  },
+  {
+    id: 'content-3',
+    title: 'コンテンツスライド3',
+    text: 'コンテンツ3の説明',
+    image: '/quickframe-css/dist/demo/assets/images/image.png',
+    alt: '画像3',
+    url: '/quickframe-css/dist/demo/docs/hogehoge',
+  },
+];
+
+import BannerText from '@/components/BannerText.astro';
+import BannerImage from '@/components/BannerImage.astro';
+import bannerImg from '@/assets/banner-image.png';
+
+import { site } from "@/config";
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
+---
+
+<Head title={site.title} />
+
+<body>
+
+  <Header siteTitle={site.title} />
+
+  <Navbar baseURL={baseURL} />
+
+  <div class="site-main">
+    <div class="container">
+      <div class="row">
+
+          <div class="col-8">
+            <main class="main-contents">
+              <slot />
+            </main>
+          </div>
+
+          <div class="col-4">
+            <aside class="sidebar">
+              <ContentsSidebar client:load contents={contentsSidebar} />
+
+              <SearchBox client:load />
+
+              <ProfileBox 
+                name="ユーザー名"
+                description="自己紹介テキストがここに入ります。"
+                imageUrl="/profile.png"
+                profileUrl="/about/"
+              />
+
+              <RecentPosts />
+
+              <ArchiveSidebar />
+              
+              <CategorySidebar />
+              
+              <TagSidebar />
+              
+              <TagCloud />
+
+              <PopularPosts />
+
+              <BannerText
+                text="新商品セール実施中！"
+                link="/quickframe-css/dist/demo/docs/hogehoge"
+                backgroundColor="#ffeb3b"
+              />
+
+              <BannerImage
+                src={bannerImg}
+                alt="バナー画像"
+                link="/quickframe-css/dist/demo/docs/hogehoge"
+              />
+            </aside>
+          </div>
+          
+        </div>
+      </div>
+  </div>
+
+  <Footer />
+  
+</body>
+
+</html>

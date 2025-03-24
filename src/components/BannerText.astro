@@ -1,0 +1,15 @@
+---
+// バナーのプロパティを定義
+interface Props {
+  text: string;
+  link?: string;
+  backgroundColor?: string;
+}
+
+// プロパティを受け取る
+const { text, link = '#', backgroundColor = '#f0f0f0' } = Astro.props;
+---
+
+<div class="banner-text" style={`background: ${backgroundColor};`}>
+  <a href={link}>{text}</a>
+</div>

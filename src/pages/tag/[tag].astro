@@ -1,0 +1,45 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+// 型を明示的に定義
+type Post = CollectionEntry<"blog">;
+type Props = { posts: Post[] };
+type Params = { tag: string };
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const tags = [...new Set(posts.flatMap(post => post.data.tags || []))];
+  
+  return tags.map((tag): { params: Params; props: Props } => ({
+    params: { tag },
+    props: { 
+      posts: posts.filter(post => 
+        post.data.tags?.includes(tag)
+      ) as Post[] 
+    }
+  }));
+}
+
+const { tag } = Astro.params as Params;
+const { posts } = Astro.props as Props;
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
+---
+
+<BaseLayout title={`タグ: ${tag}`}>
+  <h1>タグ: {tag}</h1>
+  <ul class="tag-list">
+    {posts.map(post => (
+      <li>
+        <a href={`${baseURL}/blog/${post.slug}/`}>
+          {post.data.title}
+        </a>
+        {post.data.date && (
+          <span> - {new Date(post.data.date).toLocaleDateString()}</span>
+        )}
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

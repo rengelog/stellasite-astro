@@ -1,0 +1,55 @@
+---
+import BlogLayout from "@/layouts/BlogLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+// ページネーションの設定 (1ページあたり8件)
+const firstPagePosts = sortedPosts.slice(0, 8);
+
+import { Image } from 'astro:assets';
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
+---
+
+<BlogLayout> 
+  <div class="card-grid">
+    {firstPagePosts.length > 0 ? (
+      firstPagePosts.map((post) => (
+        <div class="card">
+          <a href={`${baseURL}/blog/${post.slug}/`} class="card-link">
+          
+            {post.data.image && (
+              <Image 
+                src={post.data.image} 
+                alt={`Image for ${post.data.title}`} 
+                class="card-img"
+              />
+            )}
+
+            <h2 class="card-title">{post.data.title}</h2>
+              <div class="card-body">
+                {post.data.date && (
+                <span class="card-date">投稿日 : {new Date(post.data.date).toLocaleDateString("ja-JP", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                })}</span>
+                )}
+                {post.data.description && (
+                  <p class="card-description">{post.data.description}</p>
+                 )}
+                <span class="button">詳細を見る</span>
+              </div>
+          </a>
+        </div>
+      ))
+    ) : (
+      <p>記事が見つかりません。</p>
+    )}
+  </div>
+  <nav class="pagination">
+    {/*ページネーションの設定 (1ページあたり8件)*/}
+    {sortedPosts.length > 8 && <a href={`${baseURL}/blog/2`}>次のページ</a>}
+  </nav>
+</BlogLayout>

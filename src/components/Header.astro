@@ -1,0 +1,19 @@
+---
+import { site } from "@/config";
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
+---
+
+<div class="header-container">
+  <div class="container">
+    <header class="main-header">
+      <h1>
+        <a href={`${baseURL}/`} class="home-link">{site.title}</a>
+      </h1>
+      <button id="theme-toggle" class="theme-toggle">
+        <i class="material-icons mi-light">light_mode</i>
+        <i class="material-icons mi-dark">dark_mode</i>
+      </button>      
+    </header>
+  </div>
+</div>

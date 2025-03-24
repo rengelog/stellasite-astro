@@ -1,0 +1,49 @@
+---
+title: "Welcome to my MDX post"
+description: "これはMDXの投稿です。"
+date: 2025-03-20
+categories: ["技術","プログラミング"]
+tags: ["post"]
+slug: "my-custom-post-url"
+image: "./images/image2.png"
+isPopular: true
+isPopularNumber: 2
+---
+
+<div id="toc">
+    <h2>目次</h2>
+    <ul></ul>
+</div>
+
+## my MDX post ( .guide )
+
+This is a paragraph with **bold** text.
+
+### h3 記事タイトル ( .guide )
+
+#### h4 記事タイトル
+
+##### h5 記事タイトル
+
+###### h6 記事タイトル
+
+## セクション1 ( .guide )
+
+内容...
+
+### サブセクション1
+
+内容...
+
+## セクション2 ( .guide )
+
+内容...
+
+import RelatedPosts from "@/components/RelatedPosts.astro";
+
+<RelatedPosts
+  posts={[
+    { title: "人気の記事タイトル！", link: "quickframe-css/dist/demo/blog/popularposts/" },
+    { title: "初めてのブログ", link: "quickframe-css/dist/demo/blog/my-first-blog-post/" },
+  ]}
+/>

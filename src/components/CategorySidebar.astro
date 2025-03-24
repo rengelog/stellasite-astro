@@ -1,0 +1,52 @@
+---
+import { getUniqueCategories } from '@/utils/getCategories';
+import { getCollection } from 'astro:content';
+
+// カテゴリー取得時にundefinedを除外
+const categories = (await getUniqueCategories()).filter(category => 
+  typeof category === 'string' && category.trim() !== ''
+);
+
+const posts = await getCollection('blog');
+
+const categoryCount = posts.reduce((acc, post) => {
+  const postCategories = Array.isArray(post.data.categories) 
+    ? post.data.categories.filter(Boolean) 
+    : [post.data.category].filter(Boolean);
+
+  postCategories.forEach(category => {
+    if (category) {
+      acc[category] = (acc[category] || 0) + 1;
+    }
+  });
+  return acc;
+}, {});
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
+const totalPosts = posts.length;
+---
+
+<div class="category-sidebar">
+  <h2>カテゴリー</h2>
+  <ul class="category-list">
+    {categories.map(category => {
+      // カテゴリー名のバリデーション
+      if (!category || typeof category !== 'string') return null;
+      
+      const encodedCategory = encodeURIComponent(category);
+      const count = categoryCount[category] || 0;
+      
+      return (
+        <li>
+          <a href={`${baseURL}/category/${encodedCategory}/`}>
+            {category}
+            <span class="category-count">{count}</span>
+          </a>
+        </li>
+      );
+    })}
+    <li>
+      <strong>総記事数 <span class="total-posts">{totalPosts}</span></strong>
+    </li>
+  </ul>
+</div>

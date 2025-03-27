@@ -2,6 +2,8 @@
 import { getUniqueTags } from '@/utils/getTags';
 import { getCollection } from 'astro:content';
 
+import {t} from '@/i18n/utils'
+
 // タグ取得時にundefinedを除外
 const tags = await getUniqueTags();
 
@@ -25,7 +27,7 @@ const totalPosts = posts.length;
 ---
 
 <div class="tag-sidebar">
-  <h2>タグ</h2>
+  <h2>{t('sidebar.tag')}</h2>
   <ul class="tag-list">
     {tags.map(tag => {
       // タグ名のバリデーション

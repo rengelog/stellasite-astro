@@ -116,11 +116,10 @@ export default function Search() {
                 <div className="results-description">
                 {post.data.description && <span>{post.data.description}</span>}
                 </div>
-                
                 {(post.data.category || post.data.categories) && (
                   <div className="results-category">
                     <span>
-                      <i class="material-icons icon-position">inventory</i> カテゴリー: {' '}
+                      <i className="material-icons icon-position">inventory</i> カテゴリー: {' '}
                       {post.data.category || post.data.categories.join(' ')}
                     </span>
                   </div>
@@ -128,7 +127,7 @@ export default function Search() {
                 {post.data.tags && (
                   <div className="results-tag">
                     <span>
-                      <i class="material-icons icon-position">sell</i> タグ: {post.data.tags.join(' ')}
+                      <i className="material-icons icon-position">sell</i> タグ: {post.data.tags.join(' ')}
                     </span>
                   </div>
                 )}

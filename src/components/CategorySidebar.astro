@@ -2,6 +2,8 @@
 import { getUniqueCategories } from '@/utils/getCategories';
 import { getCollection } from 'astro:content';
 
+import {t} from '@/i18n/utils'
+
 // カテゴリー取得時にundefinedを除外
 const categories = (await getUniqueCategories()).filter(category => 
   typeof category === 'string' && category.trim() !== ''
@@ -27,7 +29,7 @@ const totalPosts = posts.length;
 ---
 
 <div class="category-sidebar">
-  <h2>カテゴリー</h2>
+  <h2>{t('sidebar.category')}</h2>
   <ul class="category-list">
     {categories.map(category => {
       // カテゴリー名のバリデーション

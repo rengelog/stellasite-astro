@@ -4,6 +4,8 @@ import { getCollection } from 'astro:content';
 const { baseURL } = Astro.props;
 const currentPath = new URL(Astro.request.url).pathname;
 
+import {t} from '@/i18n/utils'
+
 // pageコレクションの全エントリーを取得し、indexを除外して日付順にソート
 const pageEntries = await getCollection('page');
 const pages = pageEntries
@@ -15,12 +17,12 @@ const pages = pageEntries
   });
 
 const menuItems = [
-  { path: "/", title: "ホーム" },
-  { path: "/about/", title: "このサイトについて" },
-  { path: "/blog/", title: "ブログ" },
+  { path: "/", title: t('menu.home') },
+  { path: "/about/", title: t('menu.about') },
+  { path: "/blog/", title: t('menu.blog') },
   {
     path: "/page/",
-    title: "ページ",
+    title: t('menu.more'),
     children: pages.map(page => ({
       path: `/page/${page.slug}/`,
       title: page.data.title,
@@ -37,7 +39,7 @@ const menuItems = [
         <div class="navbar-icons">
           <button
             class="navbar-burger-center"
-            aria-label="メニュー"
+            aria-label={t('menu.menulabel')}
             aria-expanded="false"
             data-target="main-menu-center"
             id="burger-button"

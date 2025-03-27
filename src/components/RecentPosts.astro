@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 
+import {t} from '@/i18n/utils'
+
 const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
 
 const allPosts = await getCollection('blog');
@@ -11,7 +13,7 @@ const recentPosts = allPosts
 ---
 
 <div class="recent-posts">
-    <h2>最近の投稿</h2>
+    <h2>{t('sidebar.recentposts')}</h2>
     <ul>
         {recentPosts.map((post) => (
             <li>

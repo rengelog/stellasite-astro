@@ -1,4 +1,6 @@
 ---
+import {t} from '@/i18n/utils'
+
 interface Props {
   name: string;
   description: string;
@@ -15,7 +17,7 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
     <img src={`${baseURL}${imageUrl}`} alt={name} />
     <h2>{name}</h2>
     <p>{description}</p>
-    <a href={`${baseURL}${profileUrl}`} class="button">プロフィールを見る</a>
+    <a href={`${baseURL}${profileUrl}`} class="button">{t('sidebar.profile')}</a>
 </div>
 
 <style>

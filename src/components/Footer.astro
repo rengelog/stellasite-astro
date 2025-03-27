@@ -2,6 +2,8 @@
 import { site } from "@/config";
 import { u } from "unist-builder";
 
+import {t} from '@/i18n/utils'
+
 const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
 const currentYear = new Date().getFullYear();
 ---
@@ -12,26 +14,26 @@ const currentYear = new Date().getFullYear();
       <div class="row">
         <div class="col-6">
           <div class="footer-widget">
-            <h2>ブログについて</h2>
+            <h2>{t('footer.abouttheblog')}</h2>
             <p>
-              このブログでは、最新の情報や個人的な体験を発信しています。<br />また、技術的なトピックについても深掘りし、読者と共有することを大切にしています。
+              {t('footer.note')}
             </p>
           </div>
         </div>
         <div class="col-3">
           <div class="footer-widget">
-            <h2>リンク</h2>
+            <h2>{t('footer.link')}</h2>
             <ul>
-              <li><a href={`${baseURL}/`}>- ホーム</a></li>
-              <li><a href={`${baseURL}/blog/`}>- ブログ</a></li>
+              <li><a href={`${baseURL}/`}>- {t('footer.home')}</a></li>
+              <li><a href={`${baseURL}/blog/`}>- {t('footer.blog')}</a></li>
             </ul>
           </div>
         </div>
         <div class="col-3">
           <div class="footer-widget">
-            <h2>お問い合わせ</h2>
+            <h2>{t('footer.contact')}</h2>
             <ul>
-              <li><a href="mailto:info@example.com">- メールでのお問い合わせ</a></li>
+              <li><a href="mailto:info@example.com">- {t('footer.contactusbyemail')}</a></li>
               <ul class="social-links">
                 <li>
                   <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer">

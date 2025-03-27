@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 
+import {t} from '@/i18n/utils'
+
 const allPosts = await getCollection('blog');
 const popularPosts = allPosts
   .filter(post => post.data.isPopular)
@@ -11,7 +13,7 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
 ---
 
 <div class="popular-posts">
-  <h2>人気記事</h2>
+  <h2>{t('sidebar.PopularPosts')}</h2>
   <ul>
     {popularPosts.map((post, index) => (
       <li>

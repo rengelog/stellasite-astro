@@ -48,19 +48,24 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-function copyToClipboard(button) {
-  const url = window.location.href; // 動的にURLを取得
-  const mainElement = document.querySelector('main'); // mian要素内の最初のh1を指定
-  const firstH1 = mainElement.querySelector('h1');
-  const title = firstH1 ? firstH1.textContent : document.title; // h1があればそのテキストを使用
-  const textToCopy = `${title}\n${url}`; // タイトルとURLを結合
+document.addEventListener('DOMContentLoaded', function() {
+  const customCopyButton = document.getElementById('share-copy-btn');
+  if (customCopyButton) {
+    customCopyButton.addEventListener('click', function(event) {
+      const url = window.location.href; // 動的にURLを取得
+      const mainElement = document.querySelector('main'); // main要素内の最初のh1を指定
+      const firstH1 = mainElement.querySelector('h1');
+      const title = firstH1 ? firstH1.textContent : document.title; // h1があればそのテキストを使用
+      const textToCopy = `${title}\n${url}`; // タイトルとURLを結合
 
-  navigator.clipboard.writeText(textToCopy).then(() => {
-    const copiedText = button.querySelector(".copied-text");
-    copiedText.style.display = "inline-block";
-    setTimeout(() => { copiedText.style.display = "none"; }, 2000);
-  });
-}
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const copiedText = this.querySelector(".copied-text");
+        copiedText.style.display = "inline-block";
+        setTimeout(() => { copiedText.style.display = "none"; }, 2000);
+      });
+    });
+  }
+});
 
 /* -------------------------------------------------------------------------- */
 /* theme-toggle */

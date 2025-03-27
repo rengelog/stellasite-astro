@@ -37,8 +37,20 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
                 })}</span>
                 )}
                 {post.data.description && (
-                  <p class="card-description">{post.data.description}</p>
+                  <span class="card-description">{post.data.description}</span>
                  )}
+                {post.data.categories && (
+                  <span class="card-category">
+                    <i class="material-icons icon-position">inventory</i> カテゴリー : 
+                    {typeof post.data.categories === 'string' ? post.data.categories.split(',').map(category => category.trim()).join(' ') : post.data.categories.join(' ')}
+                  </span>
+                )}
+                {post.data.tags && (
+                  <span class="card-tag">
+                    <i class="material-icons icon-position">sell</i> タグ : 
+                    {typeof post.data.tags === 'string' ? post.data.tags.split(',').map(tag => tag.trim()).join(' ') : post.data.tags.join(' ')}
+                  </span>
+                )}
                 <span class="button">詳細を見る</span>
               </div>
           </a>

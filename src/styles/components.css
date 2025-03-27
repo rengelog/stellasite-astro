@@ -2,18 +2,6 @@
 /* theme-toggle */
 /* -------------------------------------------------------------------------- */
 
-html[data-theme="light"] {
-/* ライトモードのスタイル */
-}
-  
-html[data-theme="dark"] {
-/* ダークモードのスタイル */
-}
-
-body {
-    /* transition: background 0.3s, color 0.1s; */
-}
-
 body {
     background: #fff; /* デフォルトの背景色 */
     color: #333; /* デフォルトのテキスト色 */
@@ -50,7 +38,6 @@ html[data-theme="dark"] .theme-toggle .mi-dark {
     display: block;
     color: #fff;
 }
-  
 
 /* -------------------------------------------------------------------------- */
 /* SearchBox */
@@ -66,16 +53,17 @@ html[data-theme="dark"] .theme-toggle .mi-dark {
     padding-right: 30px;
 }
 
-html[data-theme="dark"] .search-pagination button {
-    color: #fff;
-}
-
 .search-pagination button {
     background: #fff;
 }
 
+html[data-theme="dark"] .search-pagination button {
+    background: #23262f;
+    color: #fff;
+}
+
 .search-pagination > .active {
-    background: #fff;
+    background: #f9f9f9;
 }
 
 html[data-theme="dark"] .search-pagination > .active {
@@ -165,6 +153,18 @@ html[data-theme="dark"] .results-list.fade-in {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.results-description {
+    margin-bottom: 0.5rem;
+}
+
+.results-category {
+    font-size: 0.8rem;
+}
+
+.results-tag {
+    font-size: 0.8rem;
 }
 
 /* -------------------------------------------------------------------------- */

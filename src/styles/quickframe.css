@@ -4,7 +4,7 @@
 * www.rengelog.com
 * Free to use under the MIT license.
 * http://www.opensource.org/licenses/mit-license.php
-* 2025/2/26 - 2025/3/24
+* 2025/2/26 - 2025/3/27
 */
 
 :root {
@@ -1436,7 +1436,7 @@ html[data-theme="dark"] .card-title {
 
 .card-date {
     margin: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     font-size: 0.8rem;
     color: #222;
 }
@@ -1445,13 +1445,30 @@ html[data-theme="dark"] .card-date {
     color: #fff;
 }
 
-.card-text {
+
+.card-description {
     margin: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     color: #222;
 }
 
-html[data-theme="dark"] .card-text {
+html[data-theme="dark"] .card-description {
+    color: #fff;
+}
+
+.card-category {
+    font-size: 0.8rem;
+}
+
+html[data-theme="dark"] .card-category {
+    color: #fff;
+}
+
+.card-tag {
+    font-size: 0.8rem;
+}
+
+html[data-theme="dark"] .card-tag {
     color: #fff;
 }
 

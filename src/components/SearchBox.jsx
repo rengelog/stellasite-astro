@@ -112,18 +112,25 @@ export default function Search() {
               <a href={generatePostUrl(baseURL, post)}>
                 {post.data.title}
               </a>
-              {post.data.description && <p>{post.data.description}</p>}
               <div>
+                <div className="results-description">
+                {post.data.description && <span>{post.data.description}</span>}
+                </div>
+                
                 {(post.data.category || post.data.categories) && (
-                  <p>
-                    カテゴリー: {' '}
-                    {post.data.category || post.data.categories.join(' ')}
-                  </p>
+                  <div className="results-category">
+                    <span>
+                      <i class="material-icons icon-position">inventory</i> カテゴリー: {' '}
+                      {post.data.category || post.data.categories.join(' ')}
+                    </span>
+                  </div>
                 )}
                 {post.data.tags && (
-                  <p>
-                    タグ: {post.data.tags.join(' ')}
-                  </p>
+                  <div className="results-tag">
+                    <span>
+                      <i class="material-icons icon-position">sell</i> タグ: {post.data.tags.join(' ')}
+                    </span>
+                  </div>
                 )}
               </div>
             </li>

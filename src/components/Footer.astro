@@ -5,6 +5,7 @@ import { u } from "unist-builder";
 import {t} from '@/i18n/utils'
 
 const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
+
 const currentYear = new Date().getFullYear();
 ---
 
@@ -68,5 +69,5 @@ const currentYear = new Date().getFullYear();
   </div>
 </footer>
 
-<script src={`${baseURL}/quickframe.js`} defer></script>
-<script src={`${baseURL}/util.js`} defer></script>
+<script src={`${baseURL}/scripts/quickframe.js`} defer></script>
+<script src={`${baseURL}/scripts/util.js`} defer></script>

@@ -383,6 +383,7 @@ html[data-theme="dark"] .mdx-related-posts h3 {
     justify-content: center;
     align-items: center;
     transition: opacity 0.5s; /* 不透明度の変化に0.5秒かかるように設定 */
+    z-index: 9999;
 }
 
 #qlightbox img {

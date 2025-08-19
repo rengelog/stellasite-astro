@@ -68,13 +68,13 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
       <div class="row">
 
           <div class="col-8">
-            <main class="main-contents">
+            <main class="main-contents fadein">
               <slot />
             </main>
           </div>
 
           <div class="col-4">
-            <aside class="sidebar">
+            <aside class="sidebar fadein">
               <ContentsSidebar client:load contents={contentsSidebar} />
 
               <SearchBox client:load />

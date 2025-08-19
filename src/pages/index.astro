@@ -1,9 +1,155 @@
 ---
 import FrontLayout from "@/layouts/FrontLayout.astro";
+
+const baseURL = import.meta.env.PUBLIC_BASE_URL || "";
 ---
 
 <FrontLayout>
   <article class="front-layout">
-    <p>ゆっくりしていってね！！</p>
+    <div class="contents-slide">
+      <div class="slides_f active">
+          <a href={`${baseURL}/`}>
+              <img alt="画像1" src={`${baseURL}/assets/images/image.png`} />
+          </a>
+          <p>フロントコンテンツ1の説明</p>
+      </div>
+      <div class="slides_f">
+          <a href={`${baseURL}/`}>
+              <img alt="画像2" src={`${baseURL}/assets/images/image.png`} />
+          </a>
+          <p>フロントコンテンツ2の説明</p>
+      </div>
+      <div class="slides_f">
+          <a href={`${baseURL}/`}>
+              <img alt="画像3" src={`${baseURL}/assets/images/image.png`} />
+          </a>
+          <p>フロントコンテンツ3の説明</p>
+      </div>
+  </div>
+  <div id="nav-icons">
+      <button class="prev-button1">
+          <i class="material-icons icon-position">keyboard_arrow_left</i>
+      </button>
+      <button class="next-button1">
+          <i class="material-icons icon-position">keyboard_arrow_right</i>
+      </button>
+  </div>
   </article>
+
+  <script>
+      const ContentsSlide = document.querySelector('.contents-slide');
+      const slides = document.querySelectorAll('.slides_f');
+      const prevButton = document.querySelector('.prev-button1');
+      const nextButton = document.querySelector('.next-button1');
+
+      let currentSlideIndex = 0;
+
+      prevButton.addEventListener('click', () => {
+          currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+          updateSlide();
+      });
+
+      nextButton.addEventListener('click', () => {
+          currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+          updateSlide();
+      });
+
+      function updateSlide() {
+          slides.forEach((slide, index) => {
+              if (index === currentSlideIndex) {
+              slide.classList.add('active');
+              slide.style.display = 'block'; // 表示状態を強制的に更新
+              slide.style.opacity = 0; // 一時的に透明にする
+              setTimeout(() => {
+                  slide.style.opacity = 1; // 表示状態に戻す
+              }, 500); // 遅延を500msに設定
+              } else {
+              slide.classList.remove('active');
+              slide.style.display = 'none'; // 非表示状態を強制的に更新
+              }
+          });
+      }
+
+
+      // 初期表示時にスライドがふわっと表示されるように
+      setTimeout(() => {
+          slides[0].style.opacity = 1;
+          slides[0].style.display = 'block';
+      }, 500); // 遅延を500msに設定
+  </script>
+  
+  <style>
+    .front-layout {
+      position: relative;
+      width: 100%;
+      height: auto; /* 固定の高さを削除 */
+      min-height: 300px; /* 最小の高さを設定 */
+    }
+
+    .contents-slide {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slides_f {
+    display: none;
+    opacity: 0; /* 初期状態は透明 */
+    transition: opacity 0.5s ease-in-out; /* アニメーションを設定 */
+    }
+
+    .slides_f.active {
+        display: block;
+        opacity: 1; /* 表示状態 */
+    }
+
+    #nav-icons {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 10;
+    }
+
+    @media (max-width: 768px) {
+      .front-layout {
+        min-height: 200px; /* モバイルでの最小の高さを調整 */
+      }
+
+      #nav-icons {
+        top: auto;
+        bottom: 10px; /* ボタンを下部に配置 */
+        transform: none;
+      }
+
+      .icon-position {
+        border: 1px solid #ccc;
+      }
+    }
+
+    .prev-button1,
+    .next-button1 {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .icon-position {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+    }
+  </style>
 </FrontLayout>

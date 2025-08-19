@@ -1,6 +1,6 @@
 import {en} from './en'
 import {ja} from './ja'
-import {config} from "../config";
+import {config} from "@/config";
 const ui = {
   ja, en
 }
@@ -11,4 +11,3 @@ export function useTranslations(lang: keyof typeof ui) {
 }
 
 export const t = useTranslations(config.lang)
-

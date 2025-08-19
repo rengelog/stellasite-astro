@@ -162,3 +162,20 @@ document.addEventListener('DOMContentLoaded', function() {
     image.addEventListener('click', openLightbox);
   });
 });
+
+/* -------------------------------------------------------------------------- */
+/* fadein */
+/* -------------------------------------------------------------------------- */
+
+document.addEventListener('DOMContentLoaded', function () {
+  const targets = document.querySelectorAll('.fadein');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        // io.unobserve(entry.target); // 1回だけの場合は登録解除
+      }
+    });
+  }, { threshold: 0.2 });
+  targets.forEach(target => io.observe(target));
+});

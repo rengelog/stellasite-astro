@@ -12,9 +12,9 @@ export default function Gallery() {
 
         console.log("✅ 取得した画像リスト:", imageFiles);
 
-        // 画像のパスを `/quickframe-css/dist/assets/gallery/` に変換
+        // 画像のパスを `/quickframe-css/dist/demo/assets/gallery/` に変換
         const imagePaths = Object.keys(imageFiles).map(path => {
-            return path.replace('/src/assets/gallery', '/quickframe-css/dist/assets/gallery'); // ✅ 変換
+            return path.replace('/src/assets/gallery', '/quickframe-css/dist/demo/assets/gallery'); // ✅ 変換
         });
 
         console.log("✅ 変換後の画像パス:", imagePaths);

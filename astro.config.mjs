@@ -34,6 +34,7 @@ export default defineConfig({
         remarkDirective,  // remarkCalloutで使用
         remarkBadges,
         remarkCallout,
+        readingTime,
       ],
     }),
   ],
@@ -42,7 +43,6 @@ export default defineConfig({
     remarkPlugins: [
       remarkGfm,
       remarkCallout,
-      readingTime,
       embedPlugin,
     ],
     rehypePlugins: [
